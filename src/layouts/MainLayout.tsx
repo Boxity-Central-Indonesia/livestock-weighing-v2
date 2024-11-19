@@ -74,9 +74,9 @@ export function MainLayout() {
             </ResizablePanel>
           </ResizablePanelGroup>
         </div>
-        {/* <div className="h-[8vh]">
+        <div className="h-[8vh]">
           <Footer />
-        </div> */}
+        </div>
       </section>
     </>
   )
