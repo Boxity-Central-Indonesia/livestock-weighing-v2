@@ -35,7 +35,6 @@ export const handleCreate = async ({
     jumlahSampingan,
     setRefresh,
     refresh,
-    setOpen,
     setErrors
 }: HandleCreateParams) => {
     let validation;
