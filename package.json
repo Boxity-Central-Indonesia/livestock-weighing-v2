@@ -28,6 +28,7 @@
     "react-loader-spinner": "^6.1.6",
     "react-resizable-panels": "^2.1.6",
     "react-select": "^5.8.2",
+    "sweetalert2": "^11.14.5",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"

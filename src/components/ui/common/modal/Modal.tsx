@@ -44,8 +44,6 @@ export const Modal: React.FC<ModalProps> = ({
 	const [dataOrderProductQuantity, setDataOrderProductQuantity] = useState<any>()
 	const [dataOrderProductSelisih, setDataOrderProductSelisih] = useState<any>()
 	const [dataOrderProduct, setDataOrderProduct] = useState<[]>()
-	const [selectDataOrder, setSelectDataOrder] = useState<any>({})
-	const [selectDataProduct, setSelectDataProduct] = useState<any>({})
 
 
 
@@ -57,16 +55,11 @@ export const Modal: React.FC<ModalProps> = ({
 	} ,[dataTimbangan])
 
 	useEffect(() => {
-		setOrderId('')
-		setDataProductId('')
-		setNomorKendaraan('')
 		setJumlahEkor('')
 		setJumlahAyamMati('')
 		setJumlahAyamBasah('')
 		setDataOrderProductQuantity('')
 		setDataOrderProductSelisih('')
-		setSelectDataOrder({})
-		setSelectDataProduct({})
 		setJumlahKarkas('')
 		setJumlahParting('')
 		setJumlahSampingan('')
@@ -105,10 +98,6 @@ export const Modal: React.FC<ModalProps> = ({
 						dataOrderProductSelisih={dataOrderProductSelisih}
 						setDataOrderProduct={setDataOrderProduct}
 						dataOrderProduct={dataOrderProduct}
-						setSelectDataOrder={setSelectDataOrder}
-						selectDataOrder={selectDataOrder}
-						setSelectDataProduct={setSelectDataProduct}
-						selectDataProduct={selectDataProduct}
 					/>
 					}
 					{dataType === 'Karkas' && <BodyForKarkas 
@@ -119,8 +108,6 @@ export const Modal: React.FC<ModalProps> = ({
 						dataProductKarkas={dataProductKarkas}
 						setDataProductId={setDataProductId}
 						jumlahKarkas={jumlahKarkas}
-						setSelectDataProduct={setSelectDataProduct}
-						selectDataProduct={selectDataProduct}
 					/>}
 					{dataType === 'Parting' && <BodyForParting 
 						errors={errors}
@@ -139,10 +126,6 @@ export const Modal: React.FC<ModalProps> = ({
 						dataOrderProductSelisih={dataOrderProductSelisih}
 						setDataOrderProduct={setDataOrderProduct}
 						dataOrderProduct={dataOrderProduct}
-						setSelectDataOrder={setSelectDataOrder}
-						selectDataOrder={selectDataOrder}
-						setSelectDataProduct={setSelectDataProduct}
-						selectDataProduct={selectDataProduct}
 					/>}
 					{dataType === 'Sampingan' && <BodyForSampingan
 						errors={errors} 
@@ -152,8 +135,6 @@ export const Modal: React.FC<ModalProps> = ({
 						setJumlahKgKeranjang={setJumlahKgKeranjang}
 						setDataProductId={setDataProductId}
 						jumlahSampingan={jumlahSampingan}
-						selectDataProduct={selectDataProduct}
-						setSelectDataProduct={setSelectDataProduct}
 					/>}
 	
 					<hr className="mt-5" />

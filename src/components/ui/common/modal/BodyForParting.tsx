@@ -29,10 +29,6 @@ interface BodyForParting {
   dataOrderProductSelisih: any
   setDataOrderProduct: any
   dataOrderProduct: any
-  setSelectDataOrder: any
-  selectDataOrder: any
-  setSelectDataProduct: any
-  selectDataProduct: any
 }
 
 type OrderProduct = {
@@ -58,16 +54,11 @@ export const BodyForParting: React.FC<BodyForParting> = ({
   dataOrderProductSelisih,
   setDataOrderProduct,
   dataOrderProduct,
-  setSelectDataProduct,
-  setSelectDataOrder,
-  selectDataOrder,
-  selectDataProduct
 }) => {
   const [dataProduct, setDataProduct] = useState()
 
   const handleChangeForOrder = async (option: SingleValue<Option>) => {
     setOrderId(option?.value);
-    setSelectDataOrder(option)
     try {
       const response = await getProductByOrder({param: option?.value})
       const newData = response.data.map((item: { id: any; name: any; }) => ({
@@ -93,7 +84,6 @@ export const BodyForParting: React.FC<BodyForParting> = ({
 
   const handleChangeForProduct = (option: SingleValue<Option>) => {
     setDataProductId(option?.value);
-    setSelectDataProduct(option)
     const data = dataOrderProduct.find((item: OrderProduct) => item.id === option?.value)
 
     setDataOrderProductQuantity(data.quantity_pesanan)
@@ -114,7 +104,6 @@ export const BodyForParting: React.FC<BodyForParting> = ({
             <label htmlFor="kode-order">Kode order</label>
             <Select
               name="kode-order"
-              value={selectDataOrder}
               options={dataOrder}
               onChange={handleChangeForOrder}
               placeholder="Pilih kode order"
@@ -141,7 +130,6 @@ export const BodyForParting: React.FC<BodyForParting> = ({
             <Select
               name="product"
               options={dataProduct}
-              value={selectDataProduct}
               onChange={handleChangeForProduct}
               placeholder="Pilih produk"
               isClearable

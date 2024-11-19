@@ -32,10 +32,6 @@ interface BodyProps {
   dataOrderProductSelisih: any
   setDataOrderProduct: any
   dataOrderProduct: any
-  setSelectDataOrder: any
-  selectDataOrder: any
-  setSelectDataProduct: any
-  selectDataProduct: any
 }
 
 type OrderProduct = {
@@ -65,15 +61,10 @@ export const BodyForAyam: React.FC<BodyProps> = ({
   dataOrderProductSelisih,
   setDataOrderProduct,
   dataOrderProduct,
-  setSelectDataOrder,
-  selectDataOrder,
-  setSelectDataProduct,
-  selectDataProduct
 }) => {
   const [dataProduct, setDataProduct] = useState<Option[]>([]);
 
   const handleChangeForOrder = async (option: SingleValue<Option>) => {
-    setSelectDataOrder(option)
     setOrderId(option?.value);
     try {
       const response = await getProductByOrder({ param: option?.value });
@@ -98,7 +89,6 @@ export const BodyForAyam: React.FC<BodyProps> = ({
 
   const handleChangeForProduct = (option: SingleValue<Option>) => {
     setDataProductId(option?.value);
-    setSelectDataProduct(option)
     const data = dataOrderProduct.find((item: OrderProduct) => item.id === option?.value)
 
     setDataOrderProductQuantity(data.quantity_pesanan)
@@ -121,7 +111,6 @@ export const BodyForAyam: React.FC<BodyProps> = ({
               <Select
                 name="kode-order"
                 options={dataOrder}
-                value={selectDataOrder}
                 onChange={handleChangeForOrder}
                 placeholder="Pilih kode order"
                 isClearable
@@ -147,7 +136,6 @@ export const BodyForAyam: React.FC<BodyProps> = ({
               <Select
                 name="product"
                 className="mt-3"
-                value={selectDataProduct}
                 options={dataProduct}
                 onChange={handleChangeForProduct}
                 placeholder="Pilih produk"

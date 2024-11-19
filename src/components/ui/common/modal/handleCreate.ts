@@ -1,5 +1,18 @@
 import { postOrderWeighing, postKarkas } from "@/services/apiServices";
 import { formSchemaForAyam, formSchemaForKarkas, formSchemaForParting, formSchemaForSampingan } from "./formSchme";
+import Swal from 'sweetalert2'
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
 
 interface HandleCreateParams {
     orderId: string;
@@ -88,6 +101,10 @@ export const handleCreate = async ({
         const response = await postOrderWeighing({ dataBody });
         if (response.status === 201) {
             setRefresh(!refresh);
+            Toast.fire({
+                icon: "success",
+                title: "Data berhsail ditambahkan"
+              });
         }
 
     } else if (dataType === "Karkas") {
@@ -128,6 +145,10 @@ export const handleCreate = async ({
         const response = await postKarkas({ dataBody });
         if (response.status === 201) {
             setRefresh(!refresh);
+            Toast.fire({
+                icon: "success",
+                title: "Data berhsail ditambahkan"
+              });
         }
 
     } else if (dataType === "Parting") {
@@ -173,6 +194,10 @@ export const handleCreate = async ({
         const response = await postOrderWeighing({ dataBody });
         if (response.status === 201) {
             setRefresh(!refresh);
+            Toast.fire({
+                icon: "success",
+                title: "Data berhsail ditambahkan"
+              });
         }
 
     } else if (dataType === "Sampingan") {
@@ -215,6 +240,10 @@ export const handleCreate = async ({
         const response = await postKarkas({ dataBody });
         if (response.status === 201) {
             setRefresh(!refresh);
+            Toast.fire({
+                icon: "success",
+                title: "Data berhsail ditambahkan"
+              });
         }
     }
 };

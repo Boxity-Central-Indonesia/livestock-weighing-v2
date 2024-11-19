@@ -17,8 +17,7 @@ interface BodyKarkas {
     setDataProductId: any
     errors?: any // Set optional with a default value later
     jumlahKarkas: any
-    selectDataProduct: any
-    setSelectDataProduct: any
+    
 }
 
 export const BodyForKarkas: React.FC<BodyKarkas> = ({
@@ -29,13 +28,10 @@ export const BodyForKarkas: React.FC<BodyKarkas> = ({
     setDataProductId,
     errors, // Default to an empty object if errors is undefined
     jumlahKarkas,
-    selectDataProduct,
-    setSelectDataProduct
 }) => {
 
     const handleChange = (option: SingleValue<Option>) => {
         setDataProductId(option?.value || "");
-        setSelectDataProduct(option)
     };
 
     return (
@@ -47,7 +43,6 @@ export const BodyForKarkas: React.FC<BodyKarkas> = ({
                         <label htmlFor="kode-order">Produk</label>
                         <Select
                             name="produk"
-                            value={selectDataProduct}
                             options={dataProductKarkas}
                             onChange={handleChange}
                             placeholder="Pilih produk"

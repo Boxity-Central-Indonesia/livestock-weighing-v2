@@ -18,8 +18,6 @@ interface BodySampingan {
   setDataProductId: any
   errors: any
   jumlahSampingan: any
-  setSelectDataProduct: any
-  selectDataProduct: any
 }
 
 export const BodyForSampingan: React.FC<BodySampingan> = ({
@@ -30,13 +28,10 @@ export const BodyForSampingan: React.FC<BodySampingan> = ({
   setDataProductId,
   errors,
   jumlahSampingan,
-  setSelectDataProduct,
-  selectDataProduct
 }) => {
 
   const handleChange = (option: SingleValue<Option>) => {
     setDataProductId(option?.value)
-    setSelectDataProduct(option)
 };
 
 
@@ -51,7 +46,6 @@ export const BodyForSampingan: React.FC<BodySampingan> = ({
             <Select
               name="product"
               options={dataProductSampingan}
-              value={selectDataProduct}
               onChange={handleChange}
               placeholder="Pilih produk"
               isClearable
