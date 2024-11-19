@@ -111,8 +111,8 @@ export const TableComponents: React.FC<TableComponentsProps> = ({refresh}) => {
   ];
 
   return (
-    <div className="overflow-x-auto">
-      <Table>
+    <div className="h-[80vh]">
+      <Table className="">
         <TableCaption>Data Timbangan Hari Ini</TableCaption>
         <TableHeader>
           <TableRow>
@@ -142,6 +142,7 @@ export const TableComponents: React.FC<TableComponentsProps> = ({refresh}) => {
           ))}
         </TableBody>
       </Table>
+      <div className="h-[100px]"></div>
     </div>
   );
 };

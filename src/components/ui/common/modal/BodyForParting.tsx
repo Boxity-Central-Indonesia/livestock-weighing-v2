@@ -1,7 +1,7 @@
 import Select, { SingleValue } from "react-select";
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input"
-import { getProductByOrder } from "@/services/apiServices";
+import { getProductByOrder, getOrdersById } from "@/services/apiServices";
   
 
 
@@ -21,7 +21,25 @@ interface BodyForParting {
   jumlahKgTimbangan: any
   setJumlahKgKeranjang: any
   errors: any
+  nomorKendaraan: any
+  jumlahParting: any
+  setDataOrderProductQuantity: any
+  setDataOrderProductSelisih: any
+  dataOrderProductQuantity: any
+  dataOrderProductSelisih: any
+  setDataOrderProduct: any
+  dataOrderProduct: any
+  setSelectDataOrder: any
+  selectDataOrder: any
+  setSelectDataProduct: any
+  selectDataProduct: any
 }
+
+type OrderProduct = {
+  id: string; // Adjust the type based on your actual data (e.g., number, string, etc.)
+  quantity_pesanan: number; // Adjust the type as needed
+  selisih_quantity: number; // Adjust the type as needed
+};
 
 export const BodyForParting: React.FC<BodyForParting> = ({
   dataOrder,
@@ -31,13 +49,25 @@ export const BodyForParting: React.FC<BodyForParting> = ({
   setJumlahParting,
   jumlahKgTimbangan,
   setJumlahKgKeranjang,
-  errors
+  nomorKendaraan,
+  jumlahParting,
+  errors,
+  setDataOrderProductQuantity,
+  setDataOrderProductSelisih,
+  dataOrderProductQuantity,
+  dataOrderProductSelisih,
+  setDataOrderProduct,
+  dataOrderProduct,
+  setSelectDataProduct,
+  setSelectDataOrder,
+  selectDataOrder,
+  selectDataProduct
 }) => {
   const [dataProduct, setDataProduct] = useState()
 
   const handleChangeForOrder = async (option: SingleValue<Option>) => {
     setOrderId(option?.value);
-
+    setSelectDataOrder(option)
     try {
       const response = await getProductByOrder({param: option?.value})
       const newData = response.data.map((item: { id: any; name: any; }) => ({
@@ -49,10 +79,26 @@ export const BodyForParting: React.FC<BodyForParting> = ({
       console.log(error);
     }
 
+    try {
+      const response = await getOrdersById({ param: option?.value });
+      if(response.status === 200) {
+        setDataOrderProduct(response.data.products)
+        console.log(response.data.products);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
   };
 
   const handleChangeForProduct = (option: SingleValue<Option>) => {
     setDataProductId(option?.value);
+    setSelectDataProduct(option)
+    const data = dataOrderProduct.find((item: OrderProduct) => item.id === option?.value)
+
+    setDataOrderProductQuantity(data.quantity_pesanan)
+    setDataOrderProductSelisih(data.selisih_quantity)
+
   };
 
   return (
@@ -60,14 +106,15 @@ export const BodyForParting: React.FC<BodyForParting> = ({
       <div>
         <p className="mb-1 text-4xl font-medium">{jumlahKgTimbangan || 0} kg </p>
         <p className="mt-2 mb-5 text-gray-700">
-          <b>Jumlah Pesanan:</b> kg <br />
-          <b>Selisih timbangan:</b> kg <br />
+          <b>Jumlah Pesanan:</b> {dataOrderProductQuantity} kg <br />
+          <b>Selisih timbangan:</b> {dataOrderProductSelisih} kg <br />
         </p>
         <div className="grid grid-cols-2 gap-5">
           <div className="flex flex-col col-span-2 gap-3">
             <label htmlFor="kode-order">Kode order</label>
             <Select
               name="kode-order"
+              value={selectDataOrder}
               options={dataOrder}
               onChange={handleChangeForOrder}
               placeholder="Pilih kode order"
@@ -79,6 +126,7 @@ export const BodyForParting: React.FC<BodyForParting> = ({
           <div className="flex flex-col gap-3">
             <label htmlFor="vehicle_no">Nomor kendaraan</label>
             <Input
+              value={nomorKendaraan}
               name="vehicle_no"
               onChange={(e) => setNomorKendaraan(e.target.value)}
               placeholder="Nomor kendaraan"
@@ -93,6 +141,7 @@ export const BodyForParting: React.FC<BodyForParting> = ({
             <Select
               name="product"
               options={dataProduct}
+              value={selectDataProduct}
               onChange={handleChangeForProduct}
               placeholder="Pilih produk"
               isClearable
@@ -103,6 +152,7 @@ export const BodyForParting: React.FC<BodyForParting> = ({
           <div className="flex flex-col gap-3">
             <label htmlFor="number_of_item">Jumlah parting</label>
             <Input
+              value={jumlahParting}
               name="number_of_item"
               onChange={(e) => setJumlahParting(e.target.value)}
               placeholder="Jumlah ekor"

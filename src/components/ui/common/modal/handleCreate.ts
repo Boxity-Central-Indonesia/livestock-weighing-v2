@@ -89,7 +89,6 @@ export const handleCreate = async ({
         const response = await postOrderWeighing({ dataBody });
         if (response.status === 201) {
             setRefresh(!refresh);
-            setOpen(false);
         }
 
     } else if (dataType === "Karkas") {
@@ -130,7 +129,6 @@ export const handleCreate = async ({
         const response = await postKarkas({ dataBody });
         if (response.status === 201) {
             setRefresh(!refresh);
-            setOpen(false);
         }
 
     } else if (dataType === "Parting") {
@@ -176,7 +174,6 @@ export const handleCreate = async ({
         const response = await postOrderWeighing({ dataBody });
         if (response.status === 201) {
             setRefresh(!refresh);
-            setOpen(false);
         }
 
     } else if (dataType === "Sampingan") {
@@ -219,7 +216,6 @@ export const handleCreate = async ({
         const response = await postKarkas({ dataBody });
         if (response.status === 201) {
             setRefresh(!refresh);
-            setOpen(false);
         }
     }
 };

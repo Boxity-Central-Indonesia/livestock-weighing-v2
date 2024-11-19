@@ -24,6 +24,17 @@ export const getOrders = async () => {
     throw new Error('Failed to fetch data');
 }
 
+
+export const getOrdersById = async ({param}: {param: any}) => {
+    const response = await apiClient.get(`/orders/${param}`)
+
+    if(response.status === 200) {
+        return response.data
+    }
+
+    throw new Error('Failed to fetch data');
+}
+
 export const getProductByOrder = async ({ param }: { param: any }) => {
     const response = await apiClient.get(`/orders/product/${param}`)
 

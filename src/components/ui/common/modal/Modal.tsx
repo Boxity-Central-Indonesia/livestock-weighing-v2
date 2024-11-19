@@ -41,10 +41,16 @@ export const Modal: React.FC<ModalProps> = ({
 	const [jumlahParting, setJumlahParting] = useState<string>('')
 	const [jumlahSampingan, setJumlahSampingan] = useState<string>('')
 	const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+	const [dataOrderProductQuantity, setDataOrderProductQuantity] = useState<any>()
+	const [dataOrderProductSelisih, setDataOrderProductSelisih] = useState<any>()
+	const [dataOrderProduct, setDataOrderProduct] = useState<[]>()
+	const [selectDataOrder, setSelectDataOrder] = useState<any>({})
+	const [selectDataProduct, setSelectDataProduct] = useState<any>({})
 
 
 
 	const dataTimbangan = timbanganServices()
+
 
 	useEffect(() => {
 		setJumlahKgTimbangan(dataTimbangan)
@@ -57,7 +63,14 @@ export const Modal: React.FC<ModalProps> = ({
 		setJumlahEkor('')
 		setJumlahAyamMati('')
 		setJumlahAyamBasah('')
-	}, [dataType])
+		setDataOrderProductQuantity('')
+		setDataOrderProductSelisih('')
+		setSelectDataOrder({})
+		setSelectDataProduct({})
+		setJumlahKarkas('')
+		setJumlahParting('')
+		setJumlahSampingan('')
+	}, [dataType, refresh])
 
 
 	return(
@@ -82,6 +95,20 @@ export const Modal: React.FC<ModalProps> = ({
 						setJumlahKgKeranjang={setJumlahKgKeranjang}
 						dataOrder={dataOrder}
 						jumlahKgTimbangan={jumlahKgTimbangan}
+						jumlahEkor={jumlahEkor}
+						jumlahAyamtBasah={jumlahAyamBasah}
+						jumlahAyamtMati={jumlahAyamMati}
+						nomorKendaraan={nomorKendaraan}
+						setDataOrderProductQuantity={setDataOrderProductQuantity}
+						setDataOrderProductSelisih={setDataOrderProductSelisih}
+						dataOrderProductQuantity={dataOrderProductQuantity}
+						dataOrderProductSelisih={dataOrderProductSelisih}
+						setDataOrderProduct={setDataOrderProduct}
+						dataOrderProduct={dataOrderProduct}
+						setSelectDataOrder={setSelectDataOrder}
+						selectDataOrder={selectDataOrder}
+						setSelectDataProduct={setSelectDataProduct}
+						selectDataProduct={selectDataProduct}
 					/>
 					}
 					{dataType === 'Karkas' && <BodyForKarkas 
@@ -91,6 +118,9 @@ export const Modal: React.FC<ModalProps> = ({
 						setJumlahKgKeranjang={setJumlahKgKeranjang}
 						dataProductKarkas={dataProductKarkas}
 						setDataProductId={setDataProductId}
+						jumlahKarkas={jumlahKarkas}
+						setSelectDataProduct={setSelectDataProduct}
+						selectDataProduct={selectDataProduct}
 					/>}
 					{dataType === 'Parting' && <BodyForParting 
 						errors={errors}
@@ -101,6 +131,18 @@ export const Modal: React.FC<ModalProps> = ({
 						setJumlahParting={setJumlahParting}
 						jumlahKgTimbangan={dataTimbangan}
 						setJumlahKgKeranjang={setJumlahKgKeranjang}
+						nomorKendaraan={nomorKendaraan}
+						jumlahParting={jumlahParting}
+						setDataOrderProductQuantity={setDataOrderProductQuantity}
+						setDataOrderProductSelisih={setDataOrderProductSelisih}
+						dataOrderProductQuantity={dataOrderProductQuantity}
+						dataOrderProductSelisih={dataOrderProductSelisih}
+						setDataOrderProduct={setDataOrderProduct}
+						dataOrderProduct={dataOrderProduct}
+						setSelectDataOrder={setSelectDataOrder}
+						selectDataOrder={selectDataOrder}
+						setSelectDataProduct={setSelectDataProduct}
+						selectDataProduct={selectDataProduct}
 					/>}
 					{dataType === 'Sampingan' && <BodyForSampingan
 						errors={errors} 
@@ -109,6 +151,9 @@ export const Modal: React.FC<ModalProps> = ({
 						jumlahKgTimbangan={dataTimbangan}
 						setJumlahKgKeranjang={setJumlahKgKeranjang}
 						setDataProductId={setDataProductId}
+						jumlahSampingan={jumlahSampingan}
+						selectDataProduct={selectDataProduct}
+						setSelectDataProduct={setSelectDataProduct}
 					/>}
 	
 					<hr className="mt-5" />

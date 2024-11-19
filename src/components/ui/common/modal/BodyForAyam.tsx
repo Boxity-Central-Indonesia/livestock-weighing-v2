@@ -1,7 +1,7 @@
 import Select, { SingleValue } from "react-select";
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { getProductByOrder } from "@/services/apiServices";
+import { getProductByOrder, getOrdersById } from "@/services/apiServices";
 import { ScrollArea } from "@/components/ui/scroll-area"
 
 
@@ -22,7 +22,27 @@ interface BodyProps {
   jumlahKgTimbangan: any;
   dataOrder: Option[];
   errors: any
+  jumlahEkor: any
+  nomorKendaraan: any
+  jumlahAyamtMati: any
+  jumlahAyamtBasah: any
+  setDataOrderProductQuantity: any
+  setDataOrderProductSelisih: any
+  dataOrderProductQuantity: any
+  dataOrderProductSelisih: any
+  setDataOrderProduct: any
+  dataOrderProduct: any
+  setSelectDataOrder: any
+  selectDataOrder: any
+  setSelectDataProduct: any
+  selectDataProduct: any
 }
+
+type OrderProduct = {
+  id: string; // Adjust the type based on your actual data (e.g., number, string, etc.)
+  quantity_pesanan: number; // Adjust the type as needed
+  selisih_quantity: number; // Adjust the type as needed
+};
 
 export const BodyForAyam: React.FC<BodyProps> = ({
   setOrderId,
@@ -34,11 +54,26 @@ export const BodyForAyam: React.FC<BodyProps> = ({
   setJumlahKgKeranjang,
   jumlahKgTimbangan,
   dataOrder,
-  errors
+  errors,
+  jumlahEkor,
+  nomorKendaraan,
+  jumlahAyamtMati,
+  jumlahAyamtBasah,
+  setDataOrderProductQuantity,
+  setDataOrderProductSelisih,
+  dataOrderProductQuantity,
+  dataOrderProductSelisih,
+  setDataOrderProduct,
+  dataOrderProduct,
+  setSelectDataOrder,
+  selectDataOrder,
+  setSelectDataProduct,
+  selectDataProduct
 }) => {
   const [dataProduct, setDataProduct] = useState<Option[]>([]);
 
   const handleChangeForOrder = async (option: SingleValue<Option>) => {
+    setSelectDataOrder(option)
     setOrderId(option?.value);
     try {
       const response = await getProductByOrder({ param: option?.value });
@@ -50,10 +85,25 @@ export const BodyForAyam: React.FC<BodyProps> = ({
     } catch (error) {
       console.log(error);
     }
+
+    try {
+      const response = await getOrdersById({ param: option?.value });
+      if(response.status === 200) {
+        setDataOrderProduct(response.data.products)
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChangeForProduct = (option: SingleValue<Option>) => {
     setDataProductId(option?.value);
+    setSelectDataProduct(option)
+    const data = dataOrderProduct.find((item: OrderProduct) => item.id === option?.value)
+
+    setDataOrderProductQuantity(data.quantity_pesanan)
+    setDataOrderProductSelisih(data.selisih_quantity)
+
   };
 
   return (
@@ -61,8 +111,8 @@ export const BodyForAyam: React.FC<BodyProps> = ({
       <div>
         <p className="mb-1 text-4xl font-medium">{jumlahKgTimbangan} kg </p>
         <p className="mt-2 mb-5 text-gray-700">
-          <b>Jumlah Pesanan:</b> kg <br />
-          <b>Selisih timbangan:</b> kg <br />
+          <b>Jumlah Pesanan:</b> {dataOrderProductQuantity} kg <br />
+          <b>Selisih timbangan:</b> {dataOrderProductSelisih} kg <br />
         </p>
         <ScrollArea>
           <div className="grid grid-cols-2 gap-5">
@@ -71,6 +121,7 @@ export const BodyForAyam: React.FC<BodyProps> = ({
               <Select
                 name="kode-order"
                 options={dataOrder}
+                value={selectDataOrder}
                 onChange={handleChangeForOrder}
                 placeholder="Pilih kode order"
                 isClearable
@@ -82,6 +133,7 @@ export const BodyForAyam: React.FC<BodyProps> = ({
             <div className="">
               <label htmlFor="vehicle_no">Nomor kendaraan</label>
               <Input
+                value={nomorKendaraan}
                 name="vehicle_no"
                 onChange={(e) => setNomorKendaraan(e.target.value)}
                 placeholder="Nomor kendaraan"
@@ -94,6 +146,8 @@ export const BodyForAyam: React.FC<BodyProps> = ({
               <label htmlFor="product">Produk</label>
               <Select
                 name="product"
+                className="mt-3"
+                value={selectDataProduct}
                 options={dataProduct}
                 onChange={handleChangeForProduct}
                 placeholder="Pilih produk"
@@ -105,6 +159,7 @@ export const BodyForAyam: React.FC<BodyProps> = ({
             <div className="">
               <label htmlFor="number_of_item">Jumlah ekor</label>
               <Input
+                value={jumlahEkor}
                 name="number_of_item"
                 onChange={(e) => setJumlahEkor(e.target.value)}
                 placeholder="Jumlah ekor"
@@ -129,6 +184,7 @@ export const BodyForAyam: React.FC<BodyProps> = ({
             <div className="">
               <label htmlFor="qty_ayam_mati">Jumlah ayam mati</label>
               <Input
+                value={jumlahAyamtMati}
                 name="qty_ayam_mati"
                 onChange={(e) => setJumlahAyamMati(e.target.value)}
                 placeholder="Jumlah ayam mati"
@@ -141,6 +197,7 @@ export const BodyForAyam: React.FC<BodyProps> = ({
             <div className="">
               <label htmlFor="qty_ayam_basah">Jumlah ayam basah</label>
               <Input
+                value={jumlahAyamtBasah}
                 name="qty_ayam_basah"
                 onChange={(e) => setJumlahAyamBasah(e.target.value)}
                 placeholder="Jumlah ayam basah"

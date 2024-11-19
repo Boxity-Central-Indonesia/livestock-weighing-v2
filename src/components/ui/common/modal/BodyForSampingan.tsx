@@ -17,6 +17,9 @@ interface BodySampingan {
   setJumlahKgKeranjang: any
   setDataProductId: any
   errors: any
+  jumlahSampingan: any
+  setSelectDataProduct: any
+  selectDataProduct: any
 }
 
 export const BodyForSampingan: React.FC<BodySampingan> = ({
@@ -25,11 +28,15 @@ export const BodyForSampingan: React.FC<BodySampingan> = ({
   jumlahKgTimbangan,
   setJumlahKgKeranjang,
   setDataProductId,
-  errors
+  errors,
+  jumlahSampingan,
+  setSelectDataProduct,
+  selectDataProduct
 }) => {
 
   const handleChange = (option: SingleValue<Option>) => {
     setDataProductId(option?.value)
+    setSelectDataProduct(option)
 };
 
 
@@ -44,6 +51,7 @@ export const BodyForSampingan: React.FC<BodySampingan> = ({
             <Select
               name="product"
               options={dataProductSampingan}
+              value={selectDataProduct}
               onChange={handleChange}
               placeholder="Pilih produk"
               isClearable
@@ -54,6 +62,7 @@ export const BodyForSampingan: React.FC<BodySampingan> = ({
           <div className="flex flex-col gap-3">
             <label htmlFor="number_of_item">Jumlah sampingan</label>
             <Input
+              value={jumlahSampingan}
               name="number_of_item"
               onChange={(e) => setJumlahSampingan(e.target.value)}
               placeholder="Jumlah ekor"
