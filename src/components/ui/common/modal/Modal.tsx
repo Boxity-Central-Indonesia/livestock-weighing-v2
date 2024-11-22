@@ -42,7 +42,7 @@ export const Modal: React.FC<ModalProps> = ({
 	const [jumlahSampingan, setJumlahSampingan] = useState<string>('')
 	const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 	const [dataOrderProductQuantity, setDataOrderProductQuantity] = useState<any>()
-	const [dataOrderProductSelisih, setDataOrderProductSelisih] = useState<any>()
+	const [dataOrderProductSelisih, setDataOrderProductSelisih] = useState<number>(0)
 	const [dataOrderProduct, setDataOrderProduct] = useState<[]>()
 
 
@@ -59,7 +59,7 @@ export const Modal: React.FC<ModalProps> = ({
 		setJumlahAyamMati('')
 		setJumlahAyamBasah('')
 		setDataOrderProductQuantity('')
-		setDataOrderProductSelisih('')
+		setDataOrderProductSelisih(0)
 		setJumlahKarkas('')
 		setJumlahParting('')
 		setJumlahSampingan('')

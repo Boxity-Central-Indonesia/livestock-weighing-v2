@@ -97,7 +97,7 @@ export const BodyForParting: React.FC<BodyForParting> = ({
         <p className="mb-1 text-4xl font-medium">{jumlahKgTimbangan || 0} kg </p>
         <p className="mt-2 mb-5 text-gray-700">
           <b>Jumlah Pesanan:</b> {dataOrderProductQuantity} kg <br />
-          <b>Selisih timbangan:</b> {dataOrderProductSelisih} kg <br />
+          <b>Selisih timbangan:</b> {Number(dataOrderProductSelisih.toFixed(1))} kg <br />
         </p>
         <div className="grid grid-cols-2 gap-5">
           <div className="flex flex-col col-span-2 gap-3">

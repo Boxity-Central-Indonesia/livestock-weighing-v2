@@ -95,6 +95,7 @@ export const BodyForAyam: React.FC<BodyProps> = ({
     setDataOrderProductSelisih(data.selisih_quantity)
 
   };
+  
 
   return (
     <>
@@ -102,7 +103,7 @@ export const BodyForAyam: React.FC<BodyProps> = ({
         <p className="mb-1 text-4xl font-medium">{jumlahKgTimbangan} kg </p>
         <p className="mt-2 mb-5 text-gray-700">
           <b>Jumlah Pesanan:</b> {dataOrderProductQuantity} kg <br />
-          <b>Selisih timbangan:</b> {dataOrderProductSelisih} kg <br />
+          <b>Selisih timbangan:</b> {Number(dataOrderProductSelisih.toFixed(1))} kg <br />
         </p>
         <ScrollArea>
           <div className="grid grid-cols-2 gap-5">
@@ -199,11 +200,11 @@ export const BodyForAyam: React.FC<BodyProps> = ({
               <label htmlFor="basket_weight">Jumlah kg keranjang</label>
               <select
                 onChange={(e) => setJumlahKgKeranjang(e.target.value)}
-                className="rounded-md border p-2 mt-3"
+                className="rounded-md border p-2 mt-3 dark:text-white"
                 name="basket_weight"
               >
-                <option value="6.7">6,7 kg</option>
-                <option value="7.8">7,8 kg</option>
+                <option className="dark:text-white" value="6.7">6,7 kg</option>
+                <option className="dark:text-white" value="7.8">7,8 kg</option>
               </select>
             </div>
           </div>
